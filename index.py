@@ -8,11 +8,18 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+
+# configuración del servicio de ChromeDriver
 service = Service("driver/chromedriver.exe")
+
+# Inicializar del navegador Chrome
 bot = webdriver.Chrome(service=service)
+
+# Maximizar la ventana del navegador
 bot.maximize_window()
 time.sleep(2)
 
+# Navegar a la pagina de viajes exito
 bot.get("https://www.viajesexito.com/")
 time.sleep(1)
 
@@ -21,14 +28,20 @@ vuelo_hotel = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/arti
 vuelo_hotel.click()
 time.sleep(5)
 
-#cerrar anuncio
+# se crea una instancia de WebDriverWait para manejar elementos dinamicos
 wait = WebDriverWait(bot, 10)
 
-
+# esperar a que se cargue el iframe que contiene el anuncio
 iframe = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[6]/div/div/iframe')))
+
+# se cambia el contexto al iframe para interactuar con el contenido interno
 bot.switch_to.frame(iframe)
+
+# esperar a que se le pueda hacer click al anuncio y cerrarlo
 anuncio = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div/div/div/div[1]')))
 anuncio.click()
+
+# salir del iframe
 bot.switch_to.default_content()
 
 #poner vuelo desde mde
@@ -90,8 +103,6 @@ time.sleep(18)
 handles = bot.window_handles
 bot.switch_to.window(handles[-1])
 
-
-
 # espera a que el contenedor con id divAirResults este presente
 wait = WebDriverWait(bot, 15)
 contenedor_resultados = wait.until(EC.presence_of_element_located((By.ID, 'divAirResults')))
@@ -112,7 +123,6 @@ for i, tarjeta in enumerate(tarjetas, 1):
             print(f"Precio {i}: No hay un segundo precio en esta tarjeta")
     except Exception as e:
         print(f"Error en tarjeta {i}: {e}")
-
 
 
 # ir a opciones avanzadas
@@ -138,4 +148,5 @@ contactanos = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[5]
 contactanos.click()
 time.sleep(2)
 
+# Cerrar la ventana del navegador
 bot.close()
