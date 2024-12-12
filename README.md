@@ -95,5 +95,5 @@ El código está documentado con comentarios detallados para facilitar su compre
 
 ---
 
-¡Gracias por usar nuestro bot de automatización para Viajes Éxito! Si tienes dudas o problemas, no dudes en contactarnos.
+¡Gracias! 💙👩🏻‍💻
 
