@@ -80,3 +80,8 @@ time.sleep(2)
 aplicar = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[4]/div[2]/div[2]/button')
 aplicar.click()
 time.sleep(2)
+
+#realizar la busqueda
+buscar = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[4]/a')
+buscar.click()
+time.sleep(7)
