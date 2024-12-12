@@ -9,144 +9,144 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 
-# configuración del servicio de ChromeDriver
+# ChromeDriver service configuration
 service = Service("driver/chromedriver.exe")
 
-# Inicializar del navegador Chrome
+# Initialize Chrome browser
 bot = webdriver.Chrome(service=service)
 
-# Maximizar la ventana del navegador
+# Maximize browser window
 bot.maximize_window()
 time.sleep(2)
 
-# Navegar a la pagina de viajes exito
+# Navigate to the Exito travel page
 bot.get("https://www.viajesexito.com/")
 time.sleep(1)
 
-#seleccionar el boton vuelo-hotel
-vuelo_hotel = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[1]/ul/li[3]/a/span')
-vuelo_hotel.click()
+# Select the flight-hotel button
+flight_hotel = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[1]/ul/li[3]/a/span')
+flight_hotel.click()
 time.sleep(5)
 
-# se crea una instancia de WebDriverWait para manejar elementos dinamicos
+# Create a WebDriverWait instance to handle dynamic elements
 wait = WebDriverWait(bot, 10)
 
-# esperar a que se cargue el iframe que contiene el anuncio
+# Wait for the iframe containing the ad to load
 iframe = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[6]/div/div/iframe')))
 
-# se cambia el contexto al iframe para interactuar con el contenido interno
+# Switch context to the iframe to interact with its content
 bot.switch_to.frame(iframe)
 
-# esperar a que se le pueda hacer click al anuncio y cerrarlo
-anuncio = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div/div/div/div[1]')))
-anuncio.click()
+# Wait until the ad can be clicked and close it
+ad = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div/div/div/div[1]')))
+ad.click()
 
-# salir del iframe
+# Exit the iframe
 bot.switch_to.default_content()
 
-#poner vuelo desde mde
-origen = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[1]/div/div[1]/div/div/input')
-origen.click()
+# Set flight origin to MDE
+origin = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[1]/div/div[1]/div/div/input')
+origin.click()
 time.sleep(1)
-origen = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[5]/div[2]/input')
-origen.send_keys("Jose Maria Cordova")
+origin = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[5]/div[2]/input')
+origin.send_keys("Jose Maria Cordova")
 time.sleep(1)
-origen.send_keys(Keys.ENTER)
+origin.send_keys(Keys.ENTER)
 
-#poner destio a cancun
-destino = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[1]/div/div[3]/div/div/input')
-destino.click()
+# Set destination to Cancun
+destination = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[1]/div/div[3]/div/div/input')
+destination.click()
 time.sleep(1)
-destino = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[5]/div[2]/input')
-destino.send_keys("Cancún, Quintana Roo (CUN-")
+destination = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[5]/div[2]/input')
+destination.send_keys("Cancún, Quintana Roo (CUN-")
 time.sleep(1)
 wait = WebDriverWait(bot, 10)
-opcion_destino = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[5]/ul/li/div/div[2]/p[2]')))
-opcion_destino.click()
+destination_option = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[5]/ul/li/div/div[2]/p[2]')))
+destination_option.click()
 time.sleep(1)
 
-#poner fechas de vuelos
-fecha_salida = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[2]/div/input')
-fecha_salida.click()
+# Set flight dates
+departure_date = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[2]/div/input')
+departure_date.click()
 time.sleep(1)
-fecha_salida_seleccionada = bot.find_element(By.XPATH, '/html/body/div[9]/div[2]/div[2]/div[1]/div/div[2]/div/div/div/div[2]/div/div[1]/div/div[1]/div/div[2]/div/div[6]/div[4]/div[2]/div[1]')
-fecha_salida_seleccionada.click()
-fecha_regreso = bot.find_element(By.XPATH, '/html/body/div[9]/div[2]/div[2]/div[1]/div/div[2]/div/div/div/div[2]/div/div[1]/div/div[1]/div/div[3]/div/div[3]/div[2]/div[2]/div[1]')
-fecha_regreso.click()
-boton_aceptar = bot.find_element(By.XPATH, '/html/body/div[9]/div[2]/div[2]/div[2]/button[2]')
-boton_aceptar.click()
+selected_departure_date = bot.find_element(By.XPATH, '/html/body/div[9]/div[2]/div[2]/div[1]/div/div[2]/div/div/div/div[2]/div/div[1]/div/div[1]/div/div[2]/div/div[6]/div[4]/div[2]/div[1]')
+selected_departure_date.click()
+return_date = bot.find_element(By.XPATH, '/html/body/div[9]/div[2]/div[2]/div[1]/div/div[2]/div/div/div/div[2]/div/div[1]/div/div[1]/div/div[3]/div/div[3]/div[2]/div[2]/div[1]')
+return_date.click()
+accept_button = bot.find_element(By.XPATH, '/html/body/div[9]/div[2]/div[2]/div[2]/button[2]')
+accept_button.click()
 time.sleep(2)
 
-#seleccionar habitaciones
-habitaciones = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[3]/div/div/div/div/p')
-habitaciones.click()
+# Select rooms
+rooms = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[3]/div/div/div/div/p')
+rooms.click()
 time.sleep(2)
 
-anadir_habitacion = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[4]/div[2]/div[1]/button[1]')
-anadir_habitacion.click()
+add_room = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[4]/div[2]/div[1]/button[1]')
+add_room.click()
 time.sleep(2)
-habitacion_dos =  bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[4]/div[1]/div[2]/div[3]/div/div[3]/div/div[2]/div/span[2]/button/span')
-habitacion_dos.click()
-habitacion_dos.click()
-time.sleep(2)
-
-aplicar = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[4]/div[2]/div[2]/button')
-aplicar.click()
+room_two =  bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[4]/div[1]/div[2]/div[3]/div/div[3]/div/div[2]/div/span[2]/button/span')
+room_two.click()
+room_two.click()
 time.sleep(2)
 
-#realizar la busqueda
-buscar = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[4]/a')
-buscar.click()
+apply = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[4]/div[2]/div[2]/button')
+apply.click()
+time.sleep(2)
+
+# Perform the search
+search = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[4]/a')
+search.click()
 time.sleep(18)
 
-# estas lineas son para dirigirnos a la nueva pagina
+# These lines direct to the new page
 handles = bot.window_handles
 bot.switch_to.window(handles[-1])
 
-# espera a que el contenedor con id divAirResults este presente
+# Wait for the container with ID divAirResults to be present
 wait = WebDriverWait(bot, 15)
-contenedor_resultados = wait.until(EC.presence_of_element_located((By.ID, 'divAirResults')))
+results_container = wait.until(EC.presence_of_element_located((By.ID, 'divAirResults')))
 
-# busca todas las cards div con clase row column dentro del contenedor
-tarjetas = contenedor_resultados.find_elements(By.XPATH, './div[contains(@class, "row column")]')
+# Search for all cards div with row column class within the container
+cards = results_container.find_elements(By.XPATH, './div[contains(@class, "row column")]')
 
 
-for i, tarjeta in enumerate(tarjetas, 1):
+for i, tarjeta in enumerate(cards, 1):
     try:
-        # busca todos los span con clase currencyText dentro de la tarjeta
-        precios = tarjeta.find_elements(By.XPATH, './/span[contains(@class, "currencyText")]')
+        # Search for all span elements with currencyText class within the card
+        prices = tarjeta.find_elements(By.XPATH, './/span[contains(@class, "currencyText")]')
         
-        # accede al segundo span con esa clase, ya que anteiormente hay otro con ese mismo nombre
-        if len(precios) > 1:  
-            print(f"Precio {i}: {precios[1].text}")
+        # Access the second span with that class, as there is another one with the same name before
+        if len(prices) > 1:  
+            print(f"Price {i}: {prices[1].text}")
         else:
-            print(f"Precio {i}: No hay un segundo precio en esta tarjeta")
+            print(f"Price {i}: No second price in this card")
     except Exception as e:
-        print(f"Error en tarjeta {i}: {e}")
+        print(f"Error in card {i}: {e}")
 
 
-# ir a opciones avanzadas
-opciones_avanzadas = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[6]/a')
-opciones_avanzadas.click()
+# Go to advanced options
+advanced_options = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[6]/a')
+advanced_options.click()
 time.sleep(2)
 
-#seleccionamos el input para escribir la aerolinea
-aerolinea = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[7]/div[2]/input')
-aerolinea.click()
+# Select the input to write the airline
+airline = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[7]/div[2]/input')
+airline.click()
 time.sleep(2)
-aerolinea.send_keys("United")
+airline.send_keys("United")
 time.sleep(2)
-aerolinea.send_keys(Keys.ENTER)
+airline.send_keys(Keys.ENTER)
 
-#realizamos la busqueda otra vexz
-buscar = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[8]/input')
-buscar.click()
+# Perform the search again
+search = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[8]/input')
+search.click()
 time.sleep(12)
 
-# ir a contactanos para ir a wpp
-contactanos = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[5]/footer/div[2]/div/div/div[1]/div/p[1]/a')
-contactanos.click()
+# Go to the contact us section to access WhatsApp
+contact_us = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[5]/footer/div[2]/div/div/div[1]/div/p[1]/a')
+contact_us.click()
 time.sleep(2)
 
-# Cerrar la ventana del navegador
+# Close the browser window
 bot.close()
