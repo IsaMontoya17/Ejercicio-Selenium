@@ -52,6 +52,7 @@ opcion_destino = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/fo
 opcion_destino.click()
 time.sleep(1)
 
+#poner fechas de vuelos
 fecha_salida = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[2]/div/input')
 fecha_salida.click()
 time.sleep(1)
@@ -62,3 +63,20 @@ fecha_regreso.click()
 boton_aceptar = bot.find_element(By.XPATH, '/html/body/div[9]/div[2]/div[2]/div[2]/button[2]')
 boton_aceptar.click()
 time.sleep(5)
+
+#seleccionar habitaciones
+habitaciones = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[3]/div/div/div/div/p')
+habitaciones.click()
+time.sleep(2)
+
+anadir_habitacion = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[4]/div[2]/div[1]/button[1]')
+anadir_habitacion.click()
+time.sleep(2)
+habitacion_dos =  bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[4]/div[1]/div[2]/div[3]/div/div[3]/div/div[2]/div/span[2]/button/span')
+habitacion_dos.click()
+habitacion_dos.click()
+time.sleep(2)
+
+aplicar = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[4]/div[2]/div[2]/button')
+aplicar.click()
+time.sleep(2)
