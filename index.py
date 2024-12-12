@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 
 service = Service("driver/chromedriver.exe")
@@ -13,3 +15,21 @@ time.sleep(2)
 
 bot.get("https://www.viajesexito.com/")
 time.sleep(1)
+
+vuelo_hotel = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[1]/ul/li[3]/a/span')
+vuelo_hotel.click()
+time.sleep(5)
+
+wait = WebDriverWait(bot, 10)
+anuncio = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div/div/div/div[1]')))
+anuncio.click()
+time.sleep(5)
+
+
+origen = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div/div/input')
+origen.click()
+
+input = "Jose Maria Cordoba"
+origen.send_keys(input)
+origen.send_keys(Keys.ENTER)
+time.sleep(5)
