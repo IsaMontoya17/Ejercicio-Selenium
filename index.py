@@ -21,15 +21,25 @@ vuelo_hotel.click()
 time.sleep(5)
 
 wait = WebDriverWait(bot, 10)
-anuncio = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div/div/div/div[1]')))
-anuncio.click()
+
+try:
+    iframe = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[6]/div/div/iframe')))
+    bot.switch_to.frame(iframe)
+    anuncio = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div/div/div/div[1]')))
+    anuncio.click()
+
+    bot.switch_to.default_content()
+
+except Exception as e:
+    print(f"Error: {e}")
+    
 time.sleep(5)
 
 
-origen = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div/div/input')
+'''origen = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div/div/input')
 origen.click()
 
 input = "Jose Maria Cordoba"
 origen.send_keys(input)
 origen.send_keys(Keys.ENTER)
-time.sleep(5)
+time.sleep(5)'''
