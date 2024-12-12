@@ -16,10 +16,12 @@ time.sleep(2)
 bot.get("https://www.viajesexito.com/")
 time.sleep(1)
 
+#seleccionar el boton vuelo-hotel
 vuelo_hotel = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[1]/ul/li[3]/a/span')
 vuelo_hotel.click()
 time.sleep(5)
 
+#cerrar anuncio
 wait = WebDriverWait(bot, 10)
 
 
@@ -29,7 +31,7 @@ anuncio = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div/div/d
 anuncio.click()
 bot.switch_to.default_content()
 
-
+#poner vuelo desde mde
 origen = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[1]/div/div[1]/div/div/input')
 origen.click()
 time.sleep(1)
@@ -38,6 +40,7 @@ origen.send_keys("Jose Maria Cordova")
 time.sleep(1)
 origen.send_keys(Keys.ENTER)
 
+#poner destio a cancun
 destino = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[1]/div/div[3]/div/div/input')
 destino.click()
 time.sleep(1)
