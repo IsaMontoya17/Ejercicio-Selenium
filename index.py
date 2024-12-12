@@ -62,7 +62,7 @@ fecha_regreso = bot.find_element(By.XPATH, '/html/body/div[9]/div[2]/div[2]/div[
 fecha_regreso.click()
 boton_aceptar = bot.find_element(By.XPATH, '/html/body/div[9]/div[2]/div[2]/div[2]/button[2]')
 boton_aceptar.click()
-time.sleep(5)
+time.sleep(2)
 
 #seleccionar habitaciones
 habitaciones = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[3]/div/div/div/div/p')
@@ -90,10 +90,52 @@ time.sleep(18)
 handles = bot.window_handles
 bot.switch_to.window(handles[-1])
 
-# buscar los precios
-precios = bot.find_elements(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[6]/div[6]/div/div/div[2]/div/div[1]/div[3]/p[1]/span[2]')
 
-# imprimir los precios
-for precio in precios:
-    print(precio.text)
 
+# espera a que el contenedor con id divAirResults este presente
+wait = WebDriverWait(bot, 15)
+contenedor_resultados = wait.until(EC.presence_of_element_located((By.ID, 'divAirResults')))
+
+# busca todas las cards div con clase row column dentro del contenedor
+tarjetas = contenedor_resultados.find_elements(By.XPATH, './div[contains(@class, "row column")]')
+
+
+for i, tarjeta in enumerate(tarjetas, 1):
+    try:
+        # busca todos los span con clase currencyText dentro de la tarjeta
+        precios = tarjeta.find_elements(By.XPATH, './/span[contains(@class, "currencyText")]')
+        
+        # accede al segundo span con esa clase, ya que anteiormente hay otro con ese mismo nombre
+        if len(precios) > 1:  
+            print(f"Precio {i}: {precios[1].text}")
+        else:
+            print(f"Precio {i}: No hay un segundo precio en esta tarjeta")
+    except Exception as e:
+        print(f"Error en tarjeta {i}: {e}")
+
+
+
+# ir a opciones avanzadas
+opciones_avanzadas = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[6]/a')
+opciones_avanzadas.click()
+time.sleep(2)
+
+#seleccionamos el input para escribir la aerolinea
+aerolinea = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[7]/div[2]/input')
+aerolinea.click()
+time.sleep(2)
+aerolinea.send_keys("United")
+time.sleep(2)
+aerolinea.send_keys(Keys.ENTER)
+
+#realizamos la busqueda otra vexz
+buscar = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[8]/input')
+buscar.click()
+time.sleep(12)
+
+# ir a contactanos para ir a wpp
+contactanos = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[5]/footer/div[2]/div/div/div[1]/div/p[1]/a')
+contactanos.click()
+time.sleep(2)
+
+bot.close()
