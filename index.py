@@ -84,4 +84,16 @@ time.sleep(2)
 #realizar la busqueda
 buscar = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[4]/a')
 buscar.click()
-time.sleep(7)
+time.sleep(18)
+
+# estas lineas son para dirigirnos a la nueva pagina
+handles = bot.window_handles
+bot.switch_to.window(handles[-1])
+
+# buscar los precios
+precios = bot.find_elements(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[6]/div[6]/div/div/div[2]/div/div[1]/div[3]/p[1]/span[2]')
+
+# imprimir los precios
+for precio in precios:
+    print(precio.text)
+
